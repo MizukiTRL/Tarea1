@@ -48,7 +48,9 @@ string reverseString(string str) {
 int main(){
 
     string input;
+
     string input2;
+    string input3;
     string intPart;
     string floatPart;
     
@@ -56,32 +58,22 @@ int main(){
 
     int cases=0;
 
-    while (cases<20){
-        cin>>input>>input2;
+    while (getline(cin, input)) {
+        input2="";
+        input3="";
+
         point=false;
         for(char c: input){
-            if(c!=' '){
-                if(c!='.' && !point){
-                    intPart += c;
-                }else if(c!='.' && point){
-                    floatPart += c;
-                }else{
-                    point=true;
-                }
+
+            if(c!=' ' && !point){
+                input2 += c;
+            }else if(c!=' ' && point){
+                input3 += c;
+            }else if(c==' '){
+                point=true;
             }
+            
         }
-        //cout<<intPart<<endl;
-        BigInteger numInt1(intPart);
-        //cout<<numInt1.toString()<<endl;
-
-        //cout<<floatPart<<endl;
-        BigInteger numFloat1(floatPart);
-        //cout<<numFloat1.toString()<<endl;
-
-        
-        intPart="";
-        floatPart="";
-
         point=false;
         for(char c: input2){
             if(c!=' '){
@@ -95,20 +87,40 @@ int main(){
             }
         }
 
-        //cout<<intPart<<endl;
-        BigInteger numInt2(intPart);
-        //cout<<numInt1.toString()<<endl;
+        BigInteger numInt1(intPart);
+        BigInteger numFloat1(floatPart);
 
-        //cout<<floatPart<<endl;
+        
+        intPart="";
+        floatPart="";
+
+        point=false;
+        for(char c: input3){
+            if(c!=' '){
+                if(c!='.' && !point){
+                    intPart += c;
+                }else if(c!='.' && point){
+                    floatPart += c;
+                }else{
+                    point=true;
+                }
+            }
+        }
+
+        BigInteger numInt2(intPart);
+
+
         BigInteger numFloat2(floatPart);
-        //cout<<numFloat1.toString()<<endl;
     
         intPart="";
         floatPart="";
 
-        cout<<"case "<<cases+1<< ": " <<compareBigFloat(numInt1, numFloat1, numInt2, numFloat2)<<endl;
+        cout<<"Case "<<cases+1<< ": " <<compareBigFloat(numInt1, numFloat1, numInt2, numFloat2)<<endl;
 
         cases++;
+        if (cin.eof()) {
+            break;
+        }
     }
 
     return 0;

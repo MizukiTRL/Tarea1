@@ -3,6 +3,14 @@
 
 using namespace std;
 
+/*
+Función BigInteger
+Entrada: Una string de numeros
+Salida: ninguna
+Descripción: se convierten los elementos de la string en ints y se agregan al vector digits que representan el BigInteger
+
+*/
+
 BigInteger::BigInteger(string digits){
 
     if (!digits.empty() && digits[0] == '-') {
@@ -19,10 +27,28 @@ BigInteger::BigInteger(string digits){
 
 }
 
+/*
+Función BigInteger
+Entrada: Un objeto BigInteger
+Salida: ninguna
+Descripción: copia otro BigInteger
+
+*/
+
 BigInteger::BigInteger(const BigInteger& other) {
     digits = other.digits;
     isNegative = other.isNegative;
 }
+
+/*
+Función equalOP
+Entrada: Un objeto BigInteger
+Salida: Un boolean representando la igualdad entre 2 BigInteger
+Descripción: Se comparan cosas como negativos y numero de digitos primeros y si estos no dan la respuesta deseada se pasa a un forloop
+donde se comparan los digitos desde el primero (mas grande) al ultimo (mas pequeño) de ambos objetos, si no retorna falso hasta entonces
+retorna true
+
+*/
 
 bool BigInteger::equalOP(const BigInteger& other) {
     if (isNegative != other.isNegative) {
@@ -41,6 +67,17 @@ bool BigInteger::equalOP(const BigInteger& other) {
 
     return true;
 }
+
+/*
+Función compareOP
+Entrada: Un objeto BigInteger ...
+Salida: Un boleano que representa "menor que"
+Descripción: primero se chequea si los negativos son distintos, si ninguno o ambos son negativos pasa a un forloop recorriendo todos
+los digitos desde el primero (mas grande) al ultimo (mas pequeño) y se comparan los de ambos, si los numeros terminan siendo iguales
+regresa verdadero, pero ya que esta operacion se reutiliza bastante no se puede arreglar este problema, asi que despues se usa el
+equalOP para confirmar que no sean iguales
+
+*/
 
 bool BigInteger::compareOP(const BigInteger& other) {
     // true = less than, false = more than
@@ -90,13 +127,37 @@ bool BigInteger::compareOP(const BigInteger& other) {
     return true; // Numbers are equal
 }
 
+/*
+Función operator==
+Entrada: Un objeto BigInteger
+Salida: Un boolean que representa la igualdad de 2 BigInteger
+Descripción: retorna la operacion equalOP
+
+*/
+
 bool BigInteger::operator==(const BigInteger& other){
     return equalOP(other);
 }
 
+/*
+Función operator!=
+Entrada: Un objeto BigInteger
+Salida: Un boolean que representa la desigualdad de 2 BigInteger
+Descripción: retorna lo contrario de equalOP
+
+*/
+
 bool BigInteger::operator!=(const BigInteger& other){
     return !equalOP(other);
 }
+
+/*
+Función operator<
+Entrada: Un objeto BigInteger
+Salida: Un boolean que represeta "menor que"
+Descripción: devuelve comparOP mientras no se cumpla equalOP
+
+*/
 
 bool BigInteger::operator<(const BigInteger& other){
     bool result = compareOP(other);
@@ -106,6 +167,14 @@ bool BigInteger::operator<(const BigInteger& other){
     return result;
 }
 
+/*
+Función operator<=
+Entrada: Un objeto BigInteger
+Salida: Un boolean que represeta "menor que"
+Descripción: devuelve true cuando comparOP o equalOP se cumplen
+
+*/
+
 bool BigInteger::operator<=(const BigInteger& other){
     bool result=false;
     if(compareOP(other) || equalOP(other)){
@@ -113,6 +182,14 @@ bool BigInteger::operator<=(const BigInteger& other){
     }
     return result;
 }
+
+/*
+Función operator>
+Entrada: Un objeto BigInteger
+Salida: Un boolean que represeta "menor que"
+Descripción: devuelve lo contrario a comparOP mientras no se cumpla equalOP
+
+*/
 
 bool BigInteger::operator>(const BigInteger& other){
     bool result=false;
@@ -126,6 +203,14 @@ bool BigInteger::operator>(const BigInteger& other){
     return result;
 }
 
+/*
+Función operator<=
+Entrada: Un objeto BigInteger
+Salida: Un boolean que represeta "menor que"
+Descripción: devuelve true cuando lo contrario a comparOP o equalOP se cumplen
+
+*/
+
 bool BigInteger::operator>=(const BigInteger& other){
     bool result=false;
     if(!(compareOP(other)) || equalOP(other)){
@@ -133,6 +218,15 @@ bool BigInteger::operator>=(const BigInteger& other){
     }
     return result;
 }
+
+/*
+Función sumOP
+Entrada: Un objeto BigInteger 
+Salida: Un objeto BigInteger que representa la suma de 2 BigInteger
+Descripción: recorre los elementos de BigInteger desde el ultimo numero hasta el primero y los suma, si un BigInteger es mas grande 
+que el otro, considera los valores nulos como 0, cuando la respuesta es mayor que 10, le suma 1 al siguiente digito
+
+*/
 
 string BigInteger::SumOp(const BigInteger& other) {
     string result = "";
@@ -172,6 +266,16 @@ string BigInteger::SumOp(const BigInteger& other) {
 
     return result;
 }
+
+/*
+Función: restOP
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa la diferencia entere 2 BigInteger
+Descripción: Sigue una logica similar a la suma, pero con la resta en vez de sumarle 1 al siguiente digito, cuando se resta un numero
+menor con un numero mayor, se le suma 10 al menor y se le resta 1 al siguiente digito, si los BigInteger tienen el mismo problema, se
+cambia el orden de la resta y se cambia el resultado a negativo.
+
+*/
 
 string BigInteger::RestOp(const BigInteger& other){
     string result="";
@@ -240,6 +344,14 @@ string BigInteger::RestOp(const BigInteger& other){
     return result;
 }
 
+/*
+Función operator+
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa la suma de 2 BigIntegers
+Descripción: Segun si los operadores son negativos o positivos llama sumOP o restOP segun las leyes de signos negativos.
+
+*/
+
 BigInteger BigInteger::operator+(const BigInteger& other) {
     BigInteger result("");
 
@@ -271,6 +383,14 @@ BigInteger BigInteger::operator+(const BigInteger& other) {
 
     return result;
 }
+
+/*
+Función operator-
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa la diferencia de 2 BigIntegers
+Descripción: Segun si los operadores son negativos o positivos llama sumOP o restOP segun las leyes de signos negativos.
+
+*/
 
 BigInteger BigInteger::operator-(const BigInteger& other){
     
@@ -307,6 +427,14 @@ BigInteger BigInteger::operator-(const BigInteger& other){
     return result;
 }
 
+/*
+Función operator*
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa la multiplicacion de 2 BigIntegers
+Descripción: suma el BigInteger con sigo mismo el numero de veces de la entrada y aplica signos negativos segun leyes
+
+*/
+
 BigInteger BigInteger::operator*(const BigInteger& other){
     BigInteger result("");
     BigInteger copy = *this;
@@ -324,6 +452,14 @@ BigInteger BigInteger::operator*(const BigInteger& other){
 
     return result;
 }
+
+/*
+Función operator/
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa la divicion de 2 BigIntegers
+Descripción: resta un BigInteger con otro repetidamente mientras que el primer numero sea mayor a 0 y cuenta el numero de restas totales
+
+*/
 
 BigInteger BigInteger::operator/(const BigInteger& other){
     BigInteger result("0");
@@ -346,6 +482,14 @@ BigInteger BigInteger::operator/(const BigInteger& other){
 
     return result;
 }
+
+/*
+Función operator%
+Entrada: Un objeto BigInteger
+Salida: Un objeto BigInteger que representa el reciduo de la divicion entre 2 BigIntegers
+Descripción: hace la division pero devuelve el numero final antes de que la resta diera menos de 0
+
+*/
 
 BigInteger BigInteger::operator%(const BigInteger& other){
     BigInteger result("0");
@@ -374,6 +518,15 @@ BigInteger BigInteger::operator%(const BigInteger& other){
     return result;
 }
 
+/*
+Función operator^
+Entrada: Un Int
+Salida: Un objeto BigInteger que representa un BigInteger elevado por un Int
+Descripción: parecido a la multiplicacion pero en vez de sumarse por si mismo se mutiplica por si mismo la cantidad de veces que el
+exponente indique, y se aplican signos segun leyes
+
+*/
+
 BigInteger BigInteger::operator^(const int& exponent){
     BigInteger result("");
     BigInteger copy = *this;
@@ -391,25 +544,49 @@ BigInteger BigInteger::operator^(const int& exponent){
     return result;
 }
 
-BigInteger BigInteger::sumarListaValores(const std::vector<BigInteger>& values) {
+/*
+Función: sumarListaValores
+Entrada: Un un vector de objetos BigInteger
+Salida: Un objeto BigInteger que representa la suma de todos los valores de un vector
+Descripción: Se usa el operador suma en todos los valores
+
+*/
+
+BigInteger BigInteger::sumarListaValores(const vector<BigInteger>& values) {
     BigInteger sum("0");
 
-    for (const BigInteger& value : values) {
+    for ( BigInteger value : values) {
         sum = sum + value;
     }
 
     return sum;
 }
 
-BigInteger BigInteger::sumarListaValores(const std::list<BigInteger>& values) {
+/*
+Función: sumarListaValores
+Entrada: Una lista de objetos BigInteger
+Salida: Un objeto BigInteger que representa la suma de todos los valores de una lista
+Descripción: Se usa el operador suma en todos los valores
+
+*/
+
+BigInteger BigInteger::sumarListaValores(const list<BigInteger>& values) {
     BigInteger sum("0");
 
-    for (const BigInteger& value : values) {
+    for (BigInteger value : values) {
         sum = sum + value;
     }
 
     return sum;
 }
+
+/*
+Función: multiplicarListaValores
+Entrada: Un un vector de objetos BigInteger
+Salida: Un objeto BigInteger que representa el producto de todos los valores de un vector
+Descripción: Se usa el operador * en todos los valores
+
+*/
 
 BigInteger BigInteger::multiplicarListaValores(const std::vector<BigInteger>& values) {
     BigInteger result("1");
@@ -421,6 +598,14 @@ BigInteger BigInteger::multiplicarListaValores(const std::vector<BigInteger>& va
     return result;
 }
 
+/*
+Función: multiplicarListaValores
+Entrada: Una lista de objetos BigInteger
+Salida: Un objeto BigInteger que representa el producto de todos los valores de una lista
+Descripción: Se usa el operador * en todos los valores
+
+*/
+
 BigInteger BigInteger::multiplicarListaValores(const std::list<BigInteger>& values) {
     BigInteger result("1");
 
@@ -430,6 +615,14 @@ BigInteger BigInteger::multiplicarListaValores(const std::list<BigInteger>& valu
 
     return result;
 }
+
+/*
+Función: toString
+Entrada: nada
+Salida: Una string representando el valor del objeto
+Descripción: recorre los elementos de digits, los convierte a strings, los agrega al resultado y los devuelve.
+
+*/
 
 string BigInteger::toString(){
     string toString;
@@ -442,6 +635,14 @@ string BigInteger::toString(){
     }
     return toString;
 }
+
+/*
+Función size
+Entrada: Nada
+Salida: Un objeto BigInteger que representa el numero de digitos
+Descripción: devuelve el tamaño del vector digits
+
+*/
 
 BigInteger BigInteger::size(){
     return BigInteger(to_string(digits.size()));
