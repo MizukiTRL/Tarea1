@@ -443,4 +443,8 @@ string BigInteger::toString(){
     return toString;
 }
 
+BigInteger BigInteger::size(){
+    return BigInteger(to_string(digits.size()));
+}
+
 

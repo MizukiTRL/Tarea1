@@ -60,7 +60,7 @@ public:
     // String representation of the BigInteger
     std::string toString();
 
-    
+    BigInteger size();    
 
 private:
     // Internal representation of the BigInteger as a vector
