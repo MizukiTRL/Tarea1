@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <list>
 
 class BigInteger {
 public:
@@ -50,8 +50,12 @@ public:
     // Addition function overload
     static BigInteger sumarListaValores(const std::vector<BigInteger>& values);
 
+    static BigInteger sumarListaValores(const std::list<BigInteger>& values);
+
     // Multiplication function
     static BigInteger multiplicarListaValores(const std::vector<BigInteger>& values);
+
+    static BigInteger multiplicarListaValores(const std::list<BigInteger>& values);
 
     // String representation of the BigInteger
     std::string toString();

@@ -401,7 +401,27 @@ BigInteger BigInteger::sumarListaValores(const std::vector<BigInteger>& values) 
     return sum;
 }
 
+BigInteger BigInteger::sumarListaValores(const std::list<BigInteger>& values) {
+    BigInteger sum("0");
+
+    for (const BigInteger& value : values) {
+        sum = sum + value;
+    }
+
+    return sum;
+}
+
 BigInteger BigInteger::multiplicarListaValores(const std::vector<BigInteger>& values) {
+    BigInteger result("1");
+
+    for (const BigInteger& value : values) {
+        result = result * value;
+    }
+
+    return result;
+}
+
+BigInteger BigInteger::multiplicarListaValores(const std::list<BigInteger>& values) {
     BigInteger result("1");
 
     for (const BigInteger& value : values) {
