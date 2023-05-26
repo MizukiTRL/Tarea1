@@ -231,7 +231,7 @@ int evaluarExpresion(list<char> c) {
 
     return final;
 }
-//6: O(n)
+//6: O(nlog n)
 int verificarRepetidos(queue<int>& col) {
     queue<int> aux;
     int rep=0;
@@ -260,7 +260,7 @@ int verificarRepetidos(queue<int>& col) {
 
     return rep;
 }
-//7: O(n)
+//7: O(nlog n)
 map<char, list<int>> obtenerPosicionesOcurrencias(string& cad) {
     map<char, list<int>> resultado;
 
