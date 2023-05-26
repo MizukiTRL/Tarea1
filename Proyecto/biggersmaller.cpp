@@ -58,7 +58,7 @@ int main(){
 
     int cases=0;
 
-    while (getline(cin, input)) {
+    while (getline(cin, input) && !cin.eof()) {
         input2="";
         input3="";
 
@@ -118,10 +118,9 @@ int main(){
         cout<<"Case "<<cases+1<< ": " <<compareBigFloat(numInt1, numFloat1, numInt2, numFloat2)<<endl;
 
         cases++;
-        if (cin.eof()) {
-            break;
-        }
+
     }
 
     return 0;
 }
+
