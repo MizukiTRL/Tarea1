@@ -289,7 +289,7 @@ vector<list<pair<int, int>>> crearMatrizDispersa(vector<vector<int>> mat) {
 
     return answer;
 }
-//9: O(n)
+//9: O(nlog n)
 bool verificarRepetidosCola(queue<int>& col) {
     int rep = verificarRepetidos(col);
     return rep>0;
